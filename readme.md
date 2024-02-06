@@ -25,3 +25,6 @@ Requisitos atendidos:
 Requisitos não-atendidos
 1. Front-end usando reactjs ou angular
 2. Login
+
+
+Na raiz do projeto existe o arquivo "api-indt.postman_collection.json" que pode ser usada para fazer os testes de crud no postman.
