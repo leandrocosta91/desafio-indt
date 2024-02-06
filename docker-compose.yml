@@ -10,6 +10,8 @@ services:
       - "3000"
     volumes:
       - ./:/var/www
+    networks:
+      - network-desafio-indt
 
   nginx:
     image: nginx:1.23.2-alpine
@@ -23,8 +25,29 @@ services:
       - "8080:80"
     depends_on:
       - app
+    networks:
+      - network-desafio-indt
+  
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    command: --sql-mode=""
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./.docker/mysql/my.cnf:/etc/mysql/my.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: 2@y~(!FlM_B72S(
+    networks:
+      - network-desafio-indt
 
 networks:
-  default:
-    external: true
-    name: nginx-proxy-manager
+  network-desafio-indt:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
